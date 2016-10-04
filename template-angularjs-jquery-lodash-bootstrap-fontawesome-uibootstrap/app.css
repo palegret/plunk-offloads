@@ -1,0 +1,11 @@
+html, body {
+	font: 100%/1.5em "Open Sans", "Helvetica Neue", "Segoe UI", "Arial", "Helvetica", sans-serif;
+}
+
+body {
+    margin: 15px;
+}
+
+h1, h2, h3, label {
+	font-family: "Oswald", "Helvetica Neue", "Segoe UI", "Arial", "Helvetica", sans-serif;
+}
