@@ -1,0 +1,50 @@
+<div id="ManageController" ng-controller="ManageController">
+  
+  <div id="userListing" class="section row">
+    <div class="col-sm-10 col-centered">
+      <div class="section-header">Users</div>
+      <div class="section-content" ng-class="{'no-padding': users != null && users.length > 0}">
+        <span class="ng-hide" ng-show="users == null || users.length == 0">No users found.</span>
+        <table class="table-style break-data ng-hide" ng-show="users != null && users.length > 0">
+          <thead>
+              <tr>
+                  <th id="hdrFirstName" class="sortable" title="Click to sort by First Name."
+                      ng-class="{'asc': sortBy == 'firstName', 'desc': sortBy == '-firstName'}"
+                      enter-or-click="sortByClick('firstName')" tabindex="0">
+                      First Name
+                  </th>
+                  <th id="hdrLastName" class="sortable" title="Click to sort by Last Name."
+                      ng-class="{'asc': sortBy == 'lastName', 'desc': sortBy == '-lastName'}"
+                      enter-or-click="sortByClick('lastName')" tabindex="0">
+                      Last Name
+                  </th>
+                  <th id="hdrEmail" class="sortable" title="Click to sort by Email."
+                      ng-class="{'asc': sortBy == 'email', 'desc': sortBy == '-email'}"
+                      enter-or-click="sortByClick('email')" tabindex="0">
+                      Email
+                  </th>
+                  <th id="hdrPhoneNumber" title="Click to sort by Phone Number.">
+                      Phone Number
+                  </th>
+                  <th id="hdrUsername" class="sortable" title="Click to sort by Username."
+                      ng-class="{'asc': sortBy == 'username', 'desc': sortBy == '-username'}"
+                      enter-or-click="sortByClick('username')" tabindex="0">
+                      Username
+                  </th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr id="user{{$index}}" ng-repeat="user in users | orderBy: sortBy">
+              <td headers="hdrFirstName"><span ng-bind="user.firstName"></span></td>
+              <td headers="hdrLastName"><span ng-bind="user.lastName"></span></td>
+              <td headers="hdrEmail"><span ng-bind="user.email"></span></td>
+              <td headers="hdrPhoneNumber"><span ng-bind="user.phoneNumber"></span></td>
+              <td headers="hdrUsername"><span ng-bind="user.username"></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+</div>

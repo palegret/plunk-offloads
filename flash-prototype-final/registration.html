@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NoticeMe Registration</title>
+  
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+		integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+		crossorigin="anonymous"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="registration-controller.js"></script>
+  
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet" type="text/css">
+</head>
+
+<body id="RegistrationController" ng-app="FlashRegistration" ng-controller="RegistrationController" class="no-nav">
+  <div class="container responsive-wrapper">
+    <div class="row full-height">
+        
+      <div id="leftNavContainer" class="col-sm-3 full-height-lg">
+        <div class="nav-header">
+          <div class="pull-left">
+            <div class="logo logo-small"></div>
+          </div>
+        </div>
+      </div>
+        
+      <div id="contentContainer" class="col-sm-9 full-height">
+        
+        <div id="content">
+          <div class="container-fluid">
+            
+            <div id="divAlerts" class="ng-hide" 
+              ng-show="(errors != null && errors.length > 0) || (successMsgs != null && successMsgs.length > 0)">
+          		<div id="error{{$index}}" ng-repeat="error in errors | filter: { dismissed: false }" 
+          		  class="alert alert-danger alert-dismissible">
+          			<button id="errorClose{{$index}}" type="button" class="close" 
+          			  ng-click="error.dismissed = true" title="Click to dismiss this message.">
+          				<span aria-hidden="true">&times;</span>
+          			</button>
+          			<strong>Error!</strong><br />
+          			<span ng-bind="error.message"></span>
+          		</div>
+          
+          		<div id="success{{$index}}" ng-repeat="message in successMsgs | filter: { dismissed: false }" 
+          		  class="alert alert-success alert-dismissible">
+          			<button id="successClose{{$index}}" type="button" class="close" 
+          			  ng-click="message.dismissed = true" title="Click to dismiss this message.">
+          				<span aria-hidden="true">&times;</span>
+          			</button>
+          			<strong>Success!</strong><br />
+          			<span ng-bind="message.message"></span>
+          		</div>
+          	</div>
+            
+            <div class="form" ng-form="registrationForm" ng-class="{ 'show-errors': showErrors }"
+              ng-keyup="$event.keyCode == 13 ? trySubmit() : null">
+              
+              <div class="section row">
+                <div class="col-sm-10 col-centered">
+                  
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input id="firstName" type="text" class="form-control" ng-model="firstName" required 
+                          title="Your first name." />
+                      </div>
+                    </div>
+                    
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input id="lastName" type="text" class="form-control" ng-model="lastName" required 
+                          title="Your last name." />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" class="form-control" ng-model="email" custom-focus required 
+                          title="Your email address." />
+                        <div id="emailErrors" class="error-wrapper" 
+                          ng-show="showErrors || (registrationForm.email.$dirty && !registrationForm.email.$focused)">
+                          <div ng-show="registrationForm.email.$error.email">
+                            Address is not valid
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input id="phoneNumber" type="text" class="form-control" ng-model="phoneNumber" required 
+                          title="Your phone number." />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label for="username">Desired Username</label>
+                        <input id="password" type="text" class="form-control" ng-model="username" required 
+                          title="Your desired username." />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label for="password">Password</label>
+                        <input id="password" type="password" class="form-control" ng-model="password" required
+                          title="Your password." />
+                      </div>
+                    </div>
+                    
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label for="passwordConfirm">Confirm Password</label>
+                        <input id="passwordConfirm" name="passwordConfirm" type="password" class="form-control" 
+                          ng-model="passwordConfirm" custom-focus compare-to="password" required
+                          title="Retype your password to confirm it."  />
+                          
+                        <div id="passwordConfirmErrors" class="error-wrapper" 
+                          ng-show="showErrors || (registrationForm.passwordConfirm.$dirty && !registrationForm.passwordConfirm.$focused)">
+                          <div ng-show="registrationForm.passwordConfirm.$error.compareTo">
+                            Must match the previous entry
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+              
+              <div class="row">
+            		<div class="bottom-controls col-sm-2 col-centered">
+            			<div class="text-center">
+            				<input type="button" id="submit" value="Register" class="btn blue-box"
+            					ng-click="processingAction || trySubmit()"
+            					ng-disabled="processingAction" title="Click to register." />
+            			</div>
+            		</div>
+            	</div>
+            	  
+            </div>
+        	</div>
+        </div>
+        
+        <div id="footer">
+          <div class="pull-right edc-icon"></div>
+          <div class="text-center sans-serif">
+            &copy; Copyright 
+            <a id="edcLink" class="text-large" href="http://www.easydynamics.com" target="_blank" 
+              title="Click to visit our site."><b>Easy Dynamics Corporation</b>
+            </a> - 2016
+          </div>
+        </div>
+        
+    	</div>
+      
+    </div>
+  </div>
+</body>
+</html>

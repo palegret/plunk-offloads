@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NoticeMe Login</title>
+  
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+		integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+		crossorigin="anonymous"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="login-controller.js"></script>
+  
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet" type="text/css">
+</head>
+
+<body id="LoginController" ng-app="FlashLogin" ng-controller="LoginController" class="no-nav">
+  <div class="container responsive-wrapper">
+    <div class="row full-height">
+        
+      <div id="leftNavContainer" class="col-sm-3 full-height-lg">
+        <div class="nav-header">
+          <div class="pull-left">
+            <div class="logo logo-small"></div>
+          </div>
+        </div>
+      </div>
+        
+      <div id="contentContainer" class="col-sm-9 full-height">
+        
+        <div id="content">
+          <div class="container-fluid">
+            <div class="form" ng-form="loginForm" ng-class="{ 'show-errors': showErrors }"
+              ng-keyup="$event.keyCode == 13 ? trySubmit() : null">
+              
+              <div class="section row">
+                <div class="col-sm-5 col-centered">
+                  
+                  <div class="form-group">
+                    <label for="username">Username</label>
+                    <input id="username" type="text" class="form-control" ng-model="username" required 
+                      title="Your username." />
+                  </div>
+                  
+                  <div>
+                    <label for="password">Password</label>
+                    <input id="password" type="password" class="form-control" ng-model="password" required
+                      title="Your password." />
+                  </div>
+                  
+                </div>
+              </div>
+              
+              <div class="row">
+            		<div class="bottom-controls col-sm-3 col-centered">
+            			<div class="text-center">
+            				<input type="button" id="submit" value="Login" class="btn blue-box"
+            					ng-click="processingAction || trySubmit()"
+            					ng-disabled="processingAction" title="Click to login." />
+            					<div class="text-large">Don't have a username? 
+            					  <a id="registerLink" href="registration.html" 
+            					    title="Click to navigate to the registration page.">Register!</a>
+            					</div>
+            			</div>
+            		</div>
+            	</div>
+            	  
+            </div>
+        	</div>
+        </div>
+        
+        <div id="footer">
+          <div class="pull-right edc-icon"></div>
+          <div class="text-center sans-serif">
+            &copy; Copyright 
+            <a id="edcLink" class="text-large" href="http://www.easydynamics.com" target="_blank" 
+              title="Click to visit our site."><b>Easy Dynamics Corporation</b>
+            </a> - 2016
+          </div>
+        </div>
+        
+    	</div>
+      
+    </div>
+  </div>
+</body>
+</html>

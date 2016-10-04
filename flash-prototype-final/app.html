@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NoticeMe</title>
+  
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+		integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+		crossorigin="anonymous"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"
+		integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw="
+		crossorigin="anonymous"></script>
+	<script src="bootbox.min.js"></script>
+  <script src="bootstrap-tokenfield.min.js"></script>
+  <script src="angular-ui-router.min.js"></script>
+  <script src="parent-controller.js"></script>
+  <script src="landing-controller.js"></script>
+  <script src="give-recog-controller.js"></script>
+  <script src="activity-controller.js"></script>
+  <script src="manage-controller.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="bootstrap-tokenfield.min.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet" type="text/css">
+</head>
+
+<body ng-app="Flash" ng-controller="FlashController" class="with-nav"
+  ng-class="{'nav-open': !navCollapsed, 'admin': isAdmin}">
+  <div class="container responsive-wrapper">
+      <div class="row full-height">
+        
+        <div id="leftNavContainer" class="col-sm-3 full-height-lg">
+          <div class="nav-header">
+            <div class="pull-left">
+              <div class="logo logo-small"></div>
+            </div>
+            <div class="pull-right">
+              <button id="navToggle" type="button" class="toggle btn" ng-click="toggleCollapsed()"
+                title="Click to expand/collapse navigation.">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="glyphicon glyphicon-menu-hamburger"></span>
+              </button>
+            </div>
+          </div>
+          <ul id="leftNav" class="nav nav-pills nav-stacked ng-cloak" ng-class="{'collapsed': navCollapsed}">
+            <li class="logo logo-large"></li>
+            <li role="presentation" ng-repeat="page in pages | filter: greaterThan('order', -1) | filter: byAdmin() | orderBy: 'order'" 
+              ng-class="{'active' : currentPage === page.name}">
+              <a id="pageLink{{$index}}" ui-sref="{{page.template}}" ng-click="toggleCollapsed(true)"
+                title="Click to go to the {{page.name}} page.">
+                <i class="glyphicon {{page.iconClass}}">&nbsp;</i><span ng-bind="page.name"></span>
+              </a>
+            </li>
+            <li>
+              <a id="aboutLink" href="" ng-click="showAbout()" 
+                title="Click to view version info for NoticeMe.">
+                <i class="glyphicon glyphicon-info-sign">&nbsp;</i>About
+              </a>
+            </li>
+          </ul>
+        </div>
+        
+        <div id="contentContainer" class="col-sm-9 full-height">
+          <div id="topNav">
+            <div class="pull-right">
+              <div id="userDropdown" class="dropdown">
+                <button type="button" class="dropdown-toggle text-large" data-toggle="dropdown" 
+                  title="Click to view your profile or logout.">
+                  <span class="glyphicon glyphicon-user user-icon"></span>
+                  <span class="sans-serif" ng-bind="userName"></span>&nbsp;
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a ui-sref="profile" title="Click to view or edit your profile.">My Profile</a></li>
+                  <li><a ui-sref="logout" title="Click to logout.">Logout</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div id="content">
+            <div class="container-fluid">
+              <div ui-view></div>
+            </div>
+          </div>
+          
+          <div id="footer">
+            <div class="pull-right edc-icon"></div>
+            <div class="text-center sans-serif">
+              &copy; Copyright 
+              <a id="edcLink" class="text-large" href="http://www.easydynamics.com" target="_blank" 
+                title="Click to visit our site."><b>Easy Dynamics Corporation</b>
+              </a> - 2016
+            </div>
+          </div>
+          
+        </div>
+    
+      </div>
+  </div>
+</body>
+</html>
