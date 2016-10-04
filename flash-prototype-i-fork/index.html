@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>NoticeMe</title>
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Merriweather">
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="lib/bootstrap-tokenfield/bootstrap-tokenfield.min.css">
+        <link rel="stylesheet" href="content/styles/style.css">
+        <script src="lib/polyfills.js"></script>
+    </head>
+    <body ng-app="Flash" ng-controller="FlashController">
+        <div class="container responsive-wrapper" ng-class="{'nav-open': !navCollapsed}">
+            <div class="row full-height">
+                <div id="leftNavContainer" class="col-sm-3 full-height-lg">
+                    <div class="nav-header">
+                        <div class="pull-left">
+                            <div class="logo logo-small"></div>
+                        </div>
+                        <div class="pull-right">
+                            <button type="button" class="toggle btn" ng-click="toggleCollapsed()" title="Click to expand/collapse navigation.">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="glyphicon glyphicon-menu-hamburger"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <ul id="leftNav" class="nav nav-pills nav-stacked" ng-class="{'collapsed': navCollapsed}">
+                        <li class="logo logo-large"></li>
+                        <li role="presentation" ng-repeat="page in pages | filter: greaterThan('order', -1) | filter: byAdmin() | orderBy: 'order'" ng-class="{'active' : currentPage === page.name}">
+                            <a href="" ng-click="changePage(page.name)" title="Click to go to the {{page.name}} page.">
+                                <i class="glyphicon {{page.iconClass}}">&nbsp;</i><span ng-bind="page.name"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div id="contentContainer" class="col-sm-9 full-height">
+                    <div id="topNav">
+                        <div class="pull-left">
+                            <span class="glyphicon glyphicon-user user-icon"></span>
+                            <span class="sans-serif" ng-bind="userName"></span>&nbsp;
+                        </div>
+                        <div class="pull-right">
+                            <a href="" class="light-gray-text sans-serif">Logout</a>
+                        </div>
+                    </div>
+                    
+                    <!--Content-->
+                    <div id="content">
+                        <div class="container-fluid">
+                            <div ng-repeat="page in pages" class="ng-hide" ng-show="currentPage === page.name">
+                                <div dynamic-directive="page.template" model="page"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="footer">
+                        <div class="pull-right edc-icon"></div>
+                        <div class="text-center sans-serif">
+                            &copy; Copyright <a class="text-large" href="http://www.easydynamics.com" target="_blank" title="Click to visit our site."><b>Easy Dynamics Corporation</b></a> - 2016
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="//code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
+        <script src="lib/bootstrap-tokenfield/bootstrap-tokenfield.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+        <script src="scripts/app.js"></script>
+        <script src="scripts/directives/page-directives.js"></script>
+        <script src="scripts/directives/dynamic-directive.js"></script>
+        <script src="scripts/services/app-page-service.js"></script>
+        <script src="scripts/controllers/flash-controller.js"></script>
+        <script src="scripts/controllers/give-recog-controller.js"></script>
+        <script src="scripts/controllers/activity-controller.js"></script>
+    </body>
+</html>

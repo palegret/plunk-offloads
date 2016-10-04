@@ -1,0 +1,36 @@
+<div ng-controller="ActivityController">
+    <div class="section row" ng-repeat="activity in activities | orderBy: 'date'">
+        <div class="col-sm-10 col-centered">
+            <div class="section-header" ng-class="{'green2-box': activity.type === 'received', 'blue2-box': activity.type === 'given'}">
+                <div ng-if="activity.type === 'given'">
+                    You've made an acknowledgement
+                </div>
+                <div ng-if="activity.type === 'received'">
+                    You've been acknowledged!
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="form-group" ng-if="activity.type === 'given'">
+                    <span>You recognized</span>
+                    <span ng-repeat="person in activity.recipients">
+                        <span ng-bind="$first ? '' : $last ? ' and ' : ', '"></span>
+                        <b ng-bind="person.firstName + ' ' + person.lastName"></b>
+                    </span>
+                    <span>.</span>
+                </div>
+                <div class="form-group" ng-if="activity.type === 'received'">
+                    <b ng-bind="activity.submitter.firstName + ' ' + activity.submitter.lastName"></b> recognized you!
+                </div>
+                <div class="form-group">
+                    <div 
+                        class="inline-block tag" 
+                        ng-repeat="commendation in activity.commendations" 
+                        ng-bind="commendation" 
+                        ng-class="{'green-box': activity.type === 'received', 'blue-box': activity.type === 'given'}">
+                    </div>
+                </div>
+                <div class="light-em no-bottom-margin" ng-bind="activity.description"></div>
+            </div>
+        </div>
+    </div>
+</div>
