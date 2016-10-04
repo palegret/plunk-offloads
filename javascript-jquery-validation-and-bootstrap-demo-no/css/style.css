@@ -1,0 +1,11 @@
+body {
+    font-family: "Ubuntu", "Raleway", "Open Sans", sans-serif;
+    font-size: 16px;
+    background-position: center center;
+    background-repeat: repeat-x repeat-y;
+    background-attachment: fixed;
+}
+
+h1, h2, h3, h4 {
+    font-family: "Oswald", sans-serif;
+}
